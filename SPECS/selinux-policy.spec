@@ -254,6 +254,7 @@ rm -f %{buildroot}%{_sysconfdir}/selinux/%1/active/*.linked \
 %config(noreplace) %{_sysconfdir}/selinux/%1/contexts/users/staff_u \
 %config(noreplace) %{_sysconfdir}/selinux/%1/contexts/users/es_u \
 %config(noreplace) %{_sysconfdir}/selinux/%1/contexts/users/es_u_ro \
+%config(noreplace) %{_sysconfdir}/selinux/%1/contexts/users/es_u_no \
 %{_libexecdir}/selinux/selinux-policy-migrate-local-changes.sh \
 %{_unitdir}/selinux-policy-migrate-local-changes@.service \
 %{_unitdir}/basic.target.wants/selinux-policy-migrate-local-changes@%1.service \
