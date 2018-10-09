@@ -1,0 +1,8 @@
+[Unit]
+Description=Apply ESCore SELinux policy
+
+[Service]
+ExecStart=/usr/libexec/selinux/es-restorecon.sh
+Type=oneshot
+TimeoutSec=0
+RemainAfterExit=no

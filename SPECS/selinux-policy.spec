@@ -61,6 +61,10 @@ Source102: rpm.macros
 Source110: selinux-policy-migrate-local-changes.sh
 Source111: selinux-policy-migrate-local-changes@.service
 
+# ESCore SELinux files
+Source201: es-restorecon.sh
+Source202: es-policy.service
+
 Url: http://oss.tresys.com/repos/refpolicy/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -256,8 +260,11 @@ rm -f %{buildroot}%{_sysconfdir}/selinux/%1/active/*.linked \
 %config(noreplace) %{_sysconfdir}/selinux/%1/contexts/users/es_u_ro \
 %config(noreplace) %{_sysconfdir}/selinux/%1/contexts/users/es_u_no \
 %{_libexecdir}/selinux/selinux-policy-migrate-local-changes.sh \
+%{_libexecdir}/selinux/es-restorecon.sh \
 %{_unitdir}/selinux-policy-migrate-local-changes@.service \
 %{_unitdir}/basic.target.wants/selinux-policy-migrate-local-changes@%1.service \
+%{_unitdir}/es-policy.service \
+%{_unitdir}/basic.target.wants/es-policy.service \
 %ghost %{_sysconfdir}/selinux/%1/active/policy.linked \
 %ghost %{_sysconfdir}/selinux/%1/active/seusers.linked \
 %ghost %{_sysconfdir}/selinux/%1/active/users_extra.linked \
@@ -334,6 +341,9 @@ install -p -m 755 %{SOURCE110} %{buildroot}/%{_libexecdir}/selinux/ \
 mkdir   -m 755 -p %{buildroot}/%{_unitdir}/basic.target.wants/ \
 install -m 644 -p %{SOURCE111} %{buildroot}/%{_unitdir}/ \
 ln -s ../selinux-policy-migrate-local-changes@.service %{buildroot}/%{_unitdir}/basic.target.wants/selinux-policy-migrate-local-changes@%1.service \
+install -p -m 755 %{SOURCE201} %{buildroot}/%{_libexecdir}/selinux/ \
+install -m 644 -p %{SOURCE202} %{buildroot}/%{_unitdir}/ \
+ln -s ../es-policy.service %{buildroot}/%{_unitdir}/basic.target.wants/es-policy.service \
 %nil
 
 %description
